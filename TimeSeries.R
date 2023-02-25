@@ -1,10 +1,9 @@
-#Lecture 1 - Financial Time Series ST906
+#Financial Time Series
 #packages: ggplot2,TTR
-#Let's load some time series as that's what the module's about!
 
 #Southern Oscillation Index (SOI) (indicator of intensity of El Nino effect)
 #http://www.bom.gov.au/climate/current/soihtm1.shtml
-#GOAL: detect patterns
+#The aim is to detect patterns
 SOI = read.delim("SOI.txt", header = TRUE, sep = "", dec = ".");
 print(SOI);
 X = c(t(as.matrix(SOI[,2:13])));
