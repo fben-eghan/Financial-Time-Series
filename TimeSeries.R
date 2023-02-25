@@ -32,7 +32,6 @@ SUNSPOTSg
 
 #Yearly Temperature Anomalies
 #https://data.giss.nasa.gov/gistemp/graphs/
-#GOAL: bring Trump to his senses
 TEMP= read.csv("temperature.csv",sep=",");
 lowess = TEMP[,3]
 X = TEMP[,2];
@@ -45,7 +44,6 @@ TEMPg = ggplot(TEMP, aes(x = dt, y = X)) + geom_line() +
 TEMPg
 
 #Standard and Poor's 500 (500 largest U.S. publicly traded companies by market value)
-#GOAL: make money?
 SP500 = read.table("sp500.txt");
 X = SP500$V1;
 dt = seq(as.Date("1926/1/1"), as.Date("1991/12/1"), "months");
@@ -57,7 +55,6 @@ SP500g = ggplot(SP500, aes(x = dt, y = X)) + geom_line() +
 SP500g
 
 #EUR/GBP Exchange Rate
-#GOAL:
 FX = read.csv("FX.csv",sep=",");
 print(FX);
 FX = as.matrix(FX);
@@ -130,8 +127,7 @@ SP500g3;
 #Try with different time windows
 SP500g3 + scale_x_date(limits = c(SP500$dt[550],SP500$dt[650]))
 
-#When the short trend is higher than the long-term trend
-#the security/index/... is said to have MOMENTUM
+#When the short trend > long-term trend the security has 'momentum'
 momentum =  strend-ltrend
 ggplot(SP500,aes(x = SP500$dt, y = momentum)) + geom_line(color="blue") +
   labs(title="S&P500 Momentum", x="Date", y="Momentum") +
@@ -139,8 +135,7 @@ ggplot(SP500,aes(x = SP500$dt, y = momentum)) + geom_line(color="blue") +
   scale_y_continuous(breaks = pretty(momentum,n=10)) + 
   geom_hline(yintercept=0,linetype=2,size=1.2);
 
-#Differencing.
-#Differencing is the standard technique for detrending financial time series.
+#Differencing - the standard technique for detrending financial time series.
 ggplot(SP500,aes(x = SP500$dt, y = P)) + geom_line() +
   labs(title="S&P500 Values", x="Date", y="Value") +
   scale_x_date(breaks = pretty(SP500$dt,n=10),date_labels = "%Y") +
@@ -156,7 +151,7 @@ ggplot(SP500[2:T,],aes(x = dt, y = r)) + geom_line() +
   scale_y_continuous(breaks = pretty(r,n=10)) +
   geom_line(aes(dt,x),color="red",size=0.3)
 
-#Tipical features of returns
+#Typical features of returns
 library(fBasics) # basicStats below is avialable from this package
 da = read.table("d-ibm3dx7008.txt",header=T)
 da[1:3,]
@@ -169,7 +164,7 @@ t1
 #t1 is asymptotically distributed according to a standard normal
 pv = 2*(1-pnorm(t1))
 pv
-#In this case, skeness is significantly different from zero
+#In this case, skewness is significantly different from zero
 libm = log(ibm+1)*100
 t.test(libm)
 normalTest(libm,method="jb")
